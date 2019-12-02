@@ -1013,6 +1013,7 @@ bool CGameControllerMOD::PreSpawn(CPlayer* pPlayer, vec2 *pOutPos)
 			if(Iter.Player()->GetCID() == pPlayer->GetCID()) continue;
 			if(Iter.Player()->GetClass() != PLAYERCLASS_WITCH) continue;
 			if(!Iter.Player()->GetCharacter()) continue;
+			if (Iter.Player()->GetCharacter()->HasPortal()) continue;
 			
 			vec2 SpawnPos;
 			if(Iter.Player()->GetCharacter()->FindWitchSpawnPosition(SpawnPos))
