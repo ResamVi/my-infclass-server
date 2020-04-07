@@ -1824,11 +1824,9 @@ void CCharacter::Tick()
 		// Indicate time left being protected via eyes
 		int maxProtectionTick = Server()->TickSpeed() * g_Config.m_InfSpawnProtectionTime;
 		
-    SetEmote(EMOTE_SURPRISE, Server()->Tick() + Server()->TickSpeed());
-    
-    float timeLeft = 10 * (m_ProtectionTick / (float)maxProtectionTick);
+    SetEmote(EMOTE_SURPRISE, maxProtectionTick);
 
-		// Player left spawn before protection ran out: remove all remaining armor
+		// Player left spawn before protection ran out
 		if(m_InfZoneTick == -1)
 		{
 			int maxProtectionTick = Server()->TickSpeed() * g_Config.m_InfSpawnProtectionTime;
