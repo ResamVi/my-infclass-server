@@ -1821,11 +1821,6 @@ void CCharacter::Tick()
 	if(m_ProtectionTick > 0) {
 		--m_ProtectionTick;
 
-		// Indicate time left being protected via eyes
-		int maxProtectionTick = Server()->TickSpeed() * g_Config.m_InfSpawnProtectionTime;
-		
-    SetEmote(EMOTE_SURPRISE, Server()->Tick() + maxProtectionTick);
-
 		// Player left spawn before protection ran out
 		if(m_InfZoneTick == -1)
 		{
@@ -3691,8 +3686,14 @@ void CCharacter::SlipperyEffect()
 
 void CCharacter::GrantSpawnProtection()
 {
-	if(m_ProtectionTick <= 0)
+	if(m_ProtectionTick <= 0) {
 		m_ProtectionTick = Server()->TickSpeed() * g_Config.m_InfSpawnProtectionTime;
+
+		//int maxProtectionTick = Server()->TickSpeed() * g_Config.m_InfSpawnProtectionTime;
+		
+    SetEmote(EMOTE_SURPRISE, Server()->Tick() + m_ProtectionTick);
+
+  }
 }
 
 void CCharacter::Freeze(float Time, int Player, int Reason)
