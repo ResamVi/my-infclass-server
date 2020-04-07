@@ -1824,9 +1824,7 @@ void CCharacter::Tick()
 		// Player left spawn before protection ran out
 		if(m_InfZoneTick == -1)
 		{
-			int maxProtectionTick = Server()->TickSpeed() * g_Config.m_InfSpawnProtectionTime;
 			SetEmote(EMOTE_NORMAL, Server()->Tick() + Server()->TickSpeed());
-
 			m_ProtectionTick = 0;
 		}
 	}
@@ -3688,11 +3686,7 @@ void CCharacter::GrantSpawnProtection()
 {
 	if(m_ProtectionTick <= 0) {
 		m_ProtectionTick = Server()->TickSpeed() * g_Config.m_InfSpawnProtectionTime;
-
-		//int maxProtectionTick = Server()->TickSpeed() * g_Config.m_InfSpawnProtectionTime;
-		
     SetEmote(EMOTE_SURPRISE, Server()->Tick() + m_ProtectionTick);
-
   }
 }
 
