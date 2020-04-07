@@ -1732,7 +1732,7 @@ void CCharacter::Tick()
 					m_HealTick = Server()->Tick();
 					IncreaseHealth(1);
 				}
-        dbg_msg("infzonetick", "%d", m_InfZoneTick);
+        dbg_msg("m_ProtectionTick", "%d", m_ProtectionTick);
 
 				if (m_InfZoneTick < 0) {
 					m_InfZoneTick = Server()->Tick(); // Save Tick when zombie enters infection zone
