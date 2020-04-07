@@ -1732,6 +1732,8 @@ void CCharacter::Tick()
 					m_HealTick = Server()->Tick();
 					IncreaseHealth(1);
 				}
+        dbg_msg("infzonetick", m_InfZoneTick);
+
 				if (m_InfZoneTick < 0) {
 					m_InfZoneTick = Server()->Tick(); // Save Tick when zombie enters infection zone
 					GrantSpawnProtection();
@@ -1819,17 +1821,18 @@ void CCharacter::Tick()
 	if(m_ProtectionTick > 0) {
 		--m_ProtectionTick;
 
-		// Indicate time left being protected via armor
+		// Indicate time left being protected via eyes
 		int maxProtectionTick = Server()->TickSpeed() * g_Config.m_InfSpawnProtectionTime;
-		float timeLeft = 10 * (m_ProtectionTick / (float)maxProtectionTick);
-		m_Armor = (int)timeLeft;
+		
+    SetEmote(EMOTE_SURPRISE, Server()->Tick() + Server()->TickSpeed());
+    
+    float timeLeft = 10 * (m_ProtectionTick / (float)maxProtectionTick);
 
 		// Player left spawn before protection ran out: remove all remaining armor
 		if(m_InfZoneTick == -1)
 		{
 			int maxProtectionTick = Server()->TickSpeed() * g_Config.m_InfSpawnProtectionTime;
-			float timeLeft = 10 * (m_ProtectionTick / (float)maxProtectionTick);
-			IncreaseArmor(-(int)timeLeft);
+			SetEmote(EMOTE_NORMAL, Server()->Tick() + Server()->TickSpeed());
 
 			m_ProtectionTick = 0;
 		}
@@ -3690,8 +3693,6 @@ void CCharacter::SlipperyEffect()
 
 void CCharacter::GrantSpawnProtection()
 {
-	IncreaseArmor(10); // Use Armor as time left indicator that ticks down
-
 	if(m_ProtectionTick <= 0)
 		m_ProtectionTick = Server()->TickSpeed() * g_Config.m_InfSpawnProtectionTime;
 }
